@@ -1,19 +1,15 @@
-# GATK-Alignment-BP-nf
-Performs bwa alignment and pre-processing (realignment and recalibration) following GATK best practices
+# GATK-Calling-GVCF-nf
+Performs variant calling in GVCF mode on bam files, joint genotyping and variant recalibration (SNPs and indels) following GATK best practices
 
-The whole pipeline is made up of 10 steps: 
+The whole pipeline is made up of 6 steps: 
 
-		1.Alignment generating a sam file
+		1.Variant calling on samples bam files in GVCF mode
 
-		2.Conversion to bam and sorting
+		2.Joint genotyping
 
-		3.Marking of duplicates
+		3. & 4. SNP recalibration
 
-		4.Indexing of bam
-
-		5. & 6. Local realignemnt around indels
-
-		7. to 10. Bae quality score recalibration
+		5. & 6. Indel recalibration
 
 
 Before using the pipeline, specify in your config file the paths to the following files and softwares:
@@ -24,19 +20,16 @@ Before using the pipeline, specify in your config file the paths to the followin
 		   
 		   Mills_indels = '/appli/reference/GATK_Bundle/Mills_and_1000G_gold_standard.indels.hg19.sites.vcf'
 		   
-		   ThousandG_indels = '/appli/reference/GATK_Bundle/1000G_phase1.indels.hg19.sites.vcf'
-		   
-		   cosmic = '/appli/mutect/references/Cosmic_v73.hg19_noMT.vcf'
-		   
-		   bwa = '/appli/bwa/bwa-0-7-12/bwa'
-		   
 		   java17 = 'java'
-		   
-		   picard = '/appli/picard/picard-tools-1.131/picard.jar'
 		   
 		   gatk = '/appli/GenomeAnalysisTK/GATK-3.4-0/'
 		   
-		   samtools = '/appli/samtools/samtools-1.2/samtools'
+		   hapmap = '/appli57/reference/GATK_Bundle/hapmap_3.3.hg19.sites.vcf'
+		   
+		   omni = '/appli57/reference/GATK_Bundle/1000G_omni2.5.hg19.sites.vcf'
+		   
+		   ThousandG_snps = '/appli57/reference/GATK_Bundle/1000G_phase1.snps.high_confidence.hg19.sites.vcf'
+		   
 
 
 
