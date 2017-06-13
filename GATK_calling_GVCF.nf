@@ -73,7 +73,7 @@ process creation_gvcf {
 input:
 	file pair from b_pair
 output:
-	set val(bam_tag), file("${bam_tag}_raw_calls.g.vcf") into gvcf_files, count_gvcf
+	set val(bam_tag), file("${bam_tag}_raw_calls.g.vcf") into gvcf_files, count_gvcf mode flatten
  	set val(bam_tag), file("${bam_tag}_raw_calls.g.vcf.idx") into gvcf_idx_files
 shell:
 	bam_tag = pair[0].baseName
