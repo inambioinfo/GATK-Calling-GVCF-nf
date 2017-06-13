@@ -86,7 +86,7 @@ nb_files = count_gvcf.count().val
 
 println count_split_bed.count().val
 
-// command_list_gvcf = ls *.gvcf
+
 
 ////////// STEP DATA AGGREGATION IF NB OF SAMPLES > 200-300 samples (java -jar GenomeAnalysisTK.jar -T CombineGVCFs -R reference.fasta --variant sample1.g.vcf --variant sample2.g.vcf -o cohort.g.vcf)
 
@@ -109,6 +109,7 @@ println count_split_bed.count().val
 // output:
 	// file("All_samples.gvcf") into uniq_gvcf_file, uniq_gvcf_file2
 // shell:
+	// command_list_gvcf = ls *.gvcf
 	// command_list_gvcf = gvcf_files_list.collect { f -> "-V '${f}'" }.join(' ')
    	// '''
 	// !{params.java17} -jar !{params.gatk}GenomeAnalysisTK.jar -T GenotypeGVCFs -nt 24 -R !{params.genome_ref} !{command_list_gvcf} -o All_samples.gvcf
