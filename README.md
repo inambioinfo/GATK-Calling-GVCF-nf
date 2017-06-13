@@ -3,9 +3,9 @@ Performs variant calling in GVCF mode on bam files, joint genotyping and variant
 
 The whole pipeline is made up of 6 steps: 
 
-		1.Variant calling on samples bam files in GVCF mode
+		1. Variant calling on samples bam files in GVCF mode
 
-		2.Joint genotyping
+		2. Joint genotyping
 
 		3. & 4. SNP recalibration
 
