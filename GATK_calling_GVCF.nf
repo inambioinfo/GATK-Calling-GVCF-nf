@@ -83,28 +83,37 @@ shell:
 }
 
 nb_files = count_gvcf.count().val
+
+println count_split_bed.count().val
+
 // command_list_gvcf = ls *.gvcf
 
 ////////// STEP DATA AGGREGATION IF NB OF SAMPLES > 200-300 samples (java -jar GenomeAnalysisTK.jar -T CombineGVCFs -R reference.fasta --variant sample1.g.vcf --variant sample2.g.vcf -o cohort.g.vcf)
 
 ////////// STEP 02 ################### Joint genotyping
 
+// process creation_joint {
+   	// echo "creation_joint"
+	// tag { bam_tag }
+	// cpus 24
+	// memory '24GB'
+	// clusterOptions = params.cluster_options
+// input:
 
-process GVCF {
-    set val(bam_tag), file("${bam_tag}_realigned_recal.bam"), file("${bam_tag}_realigned_recal.bai") from outputs_recalibration
-    file fasta_ref
-    file fasta_ref_fai
-    file fasta_ref_dict
+    	// set val(bam_tag), file("${bam_tag}_raw_calls.g.vcf") from gvcf_files.groupTuple(size: nb_files)
+    	// set val(bam_tag), file("${bam_tag}_raw_calls.g.vcf.idx") from gvcf_idx_files.groupTuple(size: nb_files)
+	// file gvcf_files_list
+	// file gvcf_files_idx_list
 
-    output:
-    file("${bam_tag}_raw_calls.g.vcf") into output_gvcf
-    file("${bam_tag}_raw_calls.g.vcf.idx") into output_gvcf_idx
 
-    shell:
-    '''
-    java -jar !{params.GenomeAnalysisTK} -T HaplotypeCaller -nct !{params.used_cpu} -R !{fasta_ref} -I !{bam_tag}_realigned_recal.bam --emitRefConfidence GVCF !{intervals_gvcf} -o !{bam_tag}_raw_calls.g.vcf
-    '''
-}
+// output:
+	// file("All_samples.gvcf") into uniq_gvcf_file, uniq_gvcf_file2
+// shell:
+	// command_list_gvcf = gvcf_files_list.collect { f -> "-V '${f}'" }.join(' ')
+   	// '''
+	// !{params.java17} -jar !{params.gatk}GenomeAnalysisTK.jar -T GenotypeGVCFs -nt 24 -R !{params.genome_ref} !{command_list_gvcf} -o All_samples.gvcf
+   	// '''
+//}
 
 
 //////// Variant quality score recalibration => VQSLOD
@@ -130,24 +139,4 @@ process GVCF {
    //	'''
  //}
 
-// process creation_joint {
-   	// echo "creation_joint"
-	// tag { bam_tag }
-	// cpus 24
-	// memory '24GB'
-	// clusterOptions = params.cluster_options
-// input:
-    	// set val(bam_tag), file("${bam_tag}_raw_calls.g.vcf") from gvcf_files.groupTuple(size: nb_files)
-    	// set val(bam_tag), file("${bam_tag}_raw_calls.g.vcf.idx") from gvcf_idx_files.groupTuple(size: nb_files)
-	// file gvcf_files_list
-	// file gvcf_files_idx_list
 
-
-// output:
-	// file("All_samples.gvcf") into uniq_gvcf_file, uniq_gvcf_file2
-// shell:
-	// command_list_gvcf = gvcf_files_list.collect { f -> "-V '${f}'" }.join(' ')
-   	// '''
-	// !{params.java17} -jar !{params.gatk}GenomeAnalysisTK.jar -T GenotypeGVCFs -nt 24 -R !{params.genome_ref} !{command_list_gvcf} -o All_samples.gvcf
-   	// '''
-//}
