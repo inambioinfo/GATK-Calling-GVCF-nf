@@ -36,5 +36,62 @@ Before using the pipeline, specify in your config file the paths to the followin
 		   
 You can avoid installing all the external software by only installing Docker. See the [IARC-nf](https://github.com/IARCbioinfo/IARC-nf) repository for more information.
 
-		   
+## Input 
+  | Type      | Description     |
+  |-----------|---------------|
+  | bam folder    | Folder containing the bam files on which you want to run GATK variant calling (bam files and their associated index (bai files)) 
 
+## Parameters
+
+  * #### Mandatory
+| Name      | Example value | Description     |
+|-----------|---------------|-----------------| 
+| --ref    |            PATH TO FILE | Path to genome of reference |
+| --bed    |            PATH TO FILE | Path to file with target regions |
+| --known_hapmap    |            PATH TO FILE | Path to GATK Bundle: hapmap_3.3.hg19.sites.vcf |
+| --known_omni    |            PATH TO FILE | Path to GATK Bundle: 1000G_omni2.5.hg19.sites.vcf |
+| --known_1000G    |            PATH TO FILE | Path to GATK Bundle: 1000G_phase1.snps.high_confidence.hg19.sites.vcf |
+| --known_snps    |            PATH TO FILE | Path to GATK Bundle: dbsnp_138.hg19.vcf |
+| --known_mills    |            PATH TO FILE | Path to GATK Bundle: Mills_and_1000G_gold_standard.indels.hg19.sites.vcf |
+
+  
+  * #### Optional
+| Name      | Default value | Description     |
+|-----------|---------------|-----------------| 
+| --cpu   |            8 | Number of cpu to be allocated by the various processes |
+| --mem    |            32G | Memory to be allocated to the various processes |
+
+  * #### Flags
+  
+Flags are special parameters without value.
+
+| Name      | Description     |
+|-----------|-----------------| 
+| --help    | Display help |
+		   
+## Usage 
+  ```
+  ...
+  ```
+  
+## Output 
+  | Type      | Description     |
+  |-----------|---------------|
+  | .gvcf    | GVCF File containing list of variants for each sample (input bam) |
+
+## Detailed description
+Cf. [GATK website](https://software.broadinstitute.org/gatk/best-practices/)
+
+## Directed Acyclic Graph
+To be generated
+
+## Contributions
+
+  | Name      | Email | Description     |
+  |-----------|---------------|-----------------| 
+  | VOEGELE Catherine    |            voegelec@iarc.fr | Developer|
+  | DELHOMME Tiffany    |            delhommet@students.iarc.fr | Developer |
+  
+## References
+
+Cf. [GATK website](https://software.broadinstitute.org/gatk/best-practices/)
